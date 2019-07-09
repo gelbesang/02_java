@@ -17,7 +17,7 @@ public class PrintToTen {
 		
 		// 3. 반복구문 사용
 		while(number <= 10) {
-			System.out.printf("number = %d%n", number++);
+			System.out.printf("number = %d%n", number++); 
 //			number++;
 		
 		} //end while
