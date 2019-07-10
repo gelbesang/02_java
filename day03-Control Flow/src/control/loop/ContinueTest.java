@@ -40,7 +40,7 @@ public class ContinueTest {
 		int mul = 0;
 		
 		for (int idx2 = 1; idx2 <= 100; idx2++) {
-			if(idx2 % 3 != 1) {
+			if(idx2 % 3 != 0) {
 				continue;
 			}
 			mul += idx2;
