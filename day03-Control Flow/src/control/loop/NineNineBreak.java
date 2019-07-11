@@ -15,7 +15,7 @@ public class NineNineBreak {
 
 	public static void main(String[] args) {
 		// 
-	OUT: for (int stage = 2; stage < 10; stage++);
+	OUT: for (int stage = 2; stage < 10; stage++)
 		// 단의 제목 출력
 		System.out.printf("%n%d 단 %n", stage);
 		// 내부 for loop : 1 ~ 9 까지 곱해지는 수를 반복
