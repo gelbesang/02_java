@@ -18,8 +18,16 @@ package snack;
 public class OreoTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// 1. 선언 2. 초기화
+		Oreo[] oreos;
+		
+		Oreo vanilla;
+		Oreo choko;
+		Oreo berry;
+		Oreo malcha;
+		
+		// 2. 
+		
 	}
 
 }
