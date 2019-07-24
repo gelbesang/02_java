@@ -18,21 +18,27 @@ public class LectureTest {
 		Marker blue;
 		Marker green;
 		Marker black;
+	
 
-		// 2. 초기화
-		// (1) 왼쪽 지우개는 기본 생성자로 초기화
-		leftEraser = new Eraser();
-
-		// (2) 오른쪽 지우개는 매개변수 생성자로 초기화
-		rightEraser = new Eraser(3.5, 12.0, 5.5, 3, "흰색");
-	}
-
+	// 2. 초기화
+			leftEraser  = new Eraser(3.5, 12.0, 5.5, 5, "검정색", "왼쪽");
+			rightEraser = new Eraser(3.5, 12.0, 5.5, 3, "흰색"  , "오른쪽");
+			
+			red = new Marker(true, true, "빨강");   
+	        blue = new Marker(false, false, "파랑");  
+			green = new Marker(true, false, "초록"); 
+			black = new Marker(true, false, "검정"); 
+			
 	// 3. 사용
 	// (1) 네개의 마커를 한번씩 사용
-	
+		red.use();
+		blue.use();
+		green.use();
+		black.use();
+		
 	// (2) 오른쪽 지우개로 사용한 내용 지우기
-	
+	rightEraser.eraser();
 	// (3) 오른쪽 지우개 한겹 벗겨내기
-	
-
+	rightEraser.peel();
+}
 }

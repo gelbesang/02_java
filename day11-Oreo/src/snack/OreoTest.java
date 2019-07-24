@@ -25,7 +25,7 @@ public class OreoTest {
 		
 		OreoBox box = new OreoBox(oreos);
 		
-		Oreo choco      = new Oreo(1, "초코");
+		Oreo choco      = new Oreo(1, "초코", );
 		Oreo strawberry = new Oreo(2, "딸기");
 		Oreo greentea   = new Oreo(3, "말차");
 
@@ -41,10 +41,14 @@ public class OreoTest {
 		}
 		
 		// 초코 쿠키 (1번 쿠키)를 바닐라로 변경 : set
-		
+		box.set(choco);{
+			choco.changeCream("바닐라");
+		}
 		
 		// 변경된 초코쿠키 (1번 쿠키) :get
-		
+		box.get(choco);
+		System.out.println("===========================");
+
 		
 		// 전체 크림 변경
 		for (Oreo oreo: box.getAllOreos()) {			
@@ -60,8 +64,14 @@ public class OreoTest {
 		
 		
 		// 3번 쿠키 삭제 : remove
+		box.remove(greentea);
 		
 		// 전체 목록 출력 
+		System.out.println("===========================");
+		for(Oreo oreo : box.getAllOreos()) {
+			oreo.print();
+		}
+		
 		
 	}
 

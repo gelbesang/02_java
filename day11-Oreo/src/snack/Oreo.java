@@ -25,6 +25,7 @@ public class Oreo {
 
 	// 1. 멤버변수 선언
 	// TODO 쿠키 일려번호 int seq; 추가
+	int sequence;
 	String cream;
 	double radius;
 	double thickness;
@@ -51,6 +52,10 @@ public class Oreo {
 		this.thickness = thickness;
 	}
 	
+	Oreo(String cream, double radius, double thickness,	int sequense) {
+		this(cream, radius,thickness);
+		this.sequence = sequense;
+	}
 	// 3. 메소드
 	public void print() {
 		System.out.printf("오레오 쿠키 상태 [크림의 종류:%s"
@@ -63,10 +68,34 @@ public class Oreo {
 	}
 	
 	// TODO 접근자, 수정자 추가
+	public int getSequence() {
+		 return sequence;
+	 }
+	public void setSequence(int sequence) {
+		 this.sequence = sequence;
+	 }
+	public String getCream() {
+		 return cream;
+	 }
+	public void setCream() {
+		this.cream = cream;
+	}
+	public double getRadius() {
+		return radius;
+	}
+	public void setRadius() {
+		this.radius = radius;
+	}
+	public double getThickness() {
+		return thickness;
+	}
+	public void setThickenss() {
+		this.thickness = thickness;
+	}
+	
+	
 	
 }
-
-
 
 
 
