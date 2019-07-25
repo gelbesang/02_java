@@ -109,22 +109,7 @@ public class StaticInit {
 		System.out.println("count =" + count );
 		System.out.println("memberCnt =" + init.memberCnt);
 	}
-	/**
-	 * 이 클래스의 클래스 변수(static 변수)인
-	 * count와 인스턴스 변수인 memberCnt 를 
-	 * 더한 값을 리턴하는 메소드
-	 * -------------------------------------------
-	 * 1. 이 메소드는 static modifier가 붙지 않았으므로
-	 *    non - static 메소드가 된다.
-	 * 2. non - static 메소드인 이 메소드에서
-	 * 	  static 필드인 count 값을 사용(참조) 하려 할 때
-	 *    아무런 제약 없이 바로 사용 가능
-	 *    
-	 * 3. 이유는 static 필드는 초기화 시점이 앞서기 때문
-	 * 
-	 * 
-	 * @return count + memberCnt :int
-	 */
+	
 	
 	
 	
