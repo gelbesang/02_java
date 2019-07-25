@@ -53,7 +53,7 @@ public class Product {
 	int quantity;
 	
 	// 2. 생성자 선언
-	public Product() { 
+	public  Product() { 
 	}
 	
 	public Product(String pcode) {
@@ -82,25 +82,63 @@ public class Product {
 	public String toString() {
 		return String.format("제품번호:%s 제품 이름:%s 가격:%d 재고:%d", pcode, pname, price, quantity);
 	}
+	
 	// 출력
 	public void print() {
 		System.out.println(this);
 	}
+	
 	// 할인
 	public int discount(double percentage) {
 		this.price = price - (int)(price * percentage);
 		return price;
 	}
+	
 	// 판매
 	public void sell(int amount) {
 		if(quantity - amount >= 0 ) {
 			quantity -= amount;
 		}
 	}
+	
 	// 입고 
 	public void buy(int amount) {
 		quantity += amount; 
 	}
+	
+	// 수정자
+	public void setPcode(String pdcode) {
+		this.pcode = pdcode;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public void setquantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	// 접근자 메소드
+	public String getPcode() {
+		return pname;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	
+	
+	
+	
 	
 	
 }
