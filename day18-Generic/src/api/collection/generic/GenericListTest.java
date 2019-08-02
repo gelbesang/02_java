@@ -39,7 +39,7 @@ public class GenericListTest {
 		books.add(new Book());
 		// books 리스트는 Book 타입의 인스턴스만 저장 가능
 //		books.add("Book");
-
+ 
 		// Integer Set 에서 데이터 추출 : foreach
 		for (int number : numbers) {
 			// set에서 추출 된 값에 * 100 을 출력
