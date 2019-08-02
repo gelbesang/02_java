@@ -27,7 +27,7 @@ package marker;
  *
  */
 public class Marker {
-	int serial;
+
 	// 1. 멤버변수 선언부
 	/** 
 	 * 새 마커인지 여부
@@ -47,10 +47,8 @@ public class Marker {
 	String color;
 
 	// 2. 생성자 선언부 : 중복정의 & this, this() 사용
-	
 	public Marker() {
-		this.serial = ++count;
-		}
+	}
 
 	public Marker(boolean isNew) {
 		this();
@@ -73,8 +71,8 @@ public class Marker {
 	 * 라는 문장을 출력하는 메소드
 	 */
 	public void use() {
-		System.out.printf("시리얼 번호 %d의 %s색의 마커를 "
-				       + "사용하고 있습니다.%n", serial, color);
+		System.out.printf("%s색의 마커를 "
+				       + "사용하고 있습니다.%n", color);
 	}
 	
 	
