@@ -5,21 +5,21 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * ÆÄÀÏ·Î ÀÔ·Â¹Ş¾Æ¼­ (ÆÄÀÏ³»¿ëÀ» ÀĞ¾î¼­)
- * Ç¥ÁØ Ãâ·Â(¸ğ´ÏÅÍ, ÄÜ¼ÖÃ¢)À» ÇÏ´Â Å¬·¡½º
+ * íŒŒì¼ë¡œ ì…ë ¥ë°›ì•„ì„œ (íŒŒì¼ë‚´ìš©ì„ ì½ì–´ì„œ)
+ * í‘œì¤€ ì¶œë ¥(ëª¨ë‹ˆí„°, ì½˜ì†”ì°½)ì„ í•˜ëŠ” í´ë˜ìŠ¤
  * -----------------------------------------
- * -- ÀÔ·Â --
- * 1. node stream   (ÆÄÀÏ(¹®ÀÚ ÆÄÀÏ:reader) : FileReader)
+ * -- ì…ë ¥ --
+ * 1. node stream   (íŒŒì¼(ë¬¸ì íŒŒì¼:reader) : FileReader)
  * 2. filter stream (reader --> reader : BufferedReader)
- * 3. filter stream ÀÇ ¸Ş¼Òµå readLine()À» »ç¿ë
+ * 3. filter stream ì˜ ë©”ì†Œë“œ readLine()ì„ ì‚¬ìš©
  * 
- * -- Ãâ·Â --
- * 4. node stream (Ç¥ÁØ Ãâ·Â : System.out : PintStream)
- * 5. 1ÁÙ¾¿ Ãâ·Â : println()
+ * -- ì¶œë ¥ --
+ * 4. node stream (í‘œì¤€ ì¶œë ¥ : System.out : PintStream)
+ * 5. 1ì¤„ì”© ì¶œë ¥ : println()
  * 
  * 
- * -- Á¤¸® --
- * 6. ÀÔ·Â filter stream ´İ±â
+ * -- ì •ë¦¬ --
+ * 6. ì…ë ¥ filter stream ë‹«ê¸°
  * 
  * 
  * @author Taim
@@ -29,22 +29,22 @@ import java.io.IOException;
 public class FileInput {
 
 	public static void main(String[] args) throws IOException {
-		// 1. ÀÔ·Â node stream : FileReader
+		// 1. ì…ë ¥ node stream : FileReader
 		FileReader fr = new  FileReader("out.txt");
 		
-		// 2. ÀÔ·Â fileter stream : BufferedReader
+		// 2. ì…ë ¥ fileter stream : BufferedReader
 		BufferedReader br =  new BufferedReader(fr);
 		
-		// 3. ÀÔ·Â filter streamÀÇ ÁÙ´ÜÀ§ ÀÔ·Â ¸Ş¼Òµå »ç¿ë
+		// 3. ì…ë ¥ filter streamì˜ ì¤„ë‹¨ìœ„ ì…ë ¥ ë©”ì†Œë“œ ì‚¬ìš©
 		//    readLine()
 		String input = null;
 		
 		while((input = br.readLine()) !=null) {
 			// 4,5
-			System.out.println("ÆÄÀÏ¿¡¼­ ÀĞÀ» ¼ö ¾ø´Â µ¥ÀÌÅÍ");
+			System.out.println("íŒŒì¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ëŠ” ë°ì´í„°");
 		}
 		
-		// 6. 6. ÀÔ·Â¿¡¼­ filter stream ´İ±â
+		// 6. 6. ì…ë ¥ì—ì„œ filter stream ë‹«ê¸°
 				br.close();
 				}
 }

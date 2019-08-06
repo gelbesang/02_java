@@ -1,4 +1,4 @@
-package book;
+package book.test;
 
 import book.controller.BookManager;
 import book.vo.Book;
