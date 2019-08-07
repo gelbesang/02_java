@@ -32,9 +32,9 @@ import java.io.PrintWriter;
  * @author 304
  *
  */
-public class KyeboardInputFileOutput2 {
+public class KeyboardInputFileOutput {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		// 1. 입력 : node stream : System.in
 //		InputStream in = System.in;
@@ -52,40 +52,24 @@ public class KyeboardInputFileOutput2 {
 		
 		// 6. 출력 : filter stream : writer --> writer
 //		PrintWriter out = new PrintWriter(fw);
-		PrintWriter out = null;
+		PrintWriter out = new PrintWriter(new FileWriter("out.txt"));
 		
-		try {
-			out = new PrintWriter(new FileWriter("out.txt"));
-			
-			// 4. 입력 filter stream 에서 읽기
-			System.out.println("값을 입력하세요. (ctrl + z 입력시 중단)");
-			
-			String readData = null;
-			while ((readData = br.readLine()) != null) {
-				// 7. 출력 filter stream 에 쓰기
-				out.println(readData);
-				//    화면 출력
-				System.out.println("읽은 데이터:" + readData);
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			
-		} finally {
-			// 8, 9 객체 닫기
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		// 4. 입력 filter stream 에서 읽기
+		System.out.println("값을 입력하세요. (ctrl + z 입력시 중단)");
+		
+		String readData = null;
+		while ((readData = br.readLine()) != null) {
+			// 7. 출력 filter stream 에 쓰기
+			out.println(readData);
+			//    화면 출력
+			System.out.println("읽은 데이터:" + readData);
+		}
+		
+		// 8, 9 객체 닫기
+		br.close();
+		out.close();
+	}
 
-			if (out != null)
-				out.close();
-			
-		} // end try ~ catch ~ finally
-		
-	} // end main method
-	
-} // end class
+}
+
 

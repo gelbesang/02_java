@@ -1,69 +1,70 @@
 package io.basic;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * ¹®ÀÚ ÆÄÀÏ¿¡¼­ ÀÔ·Â¹Ş¾Æ¼­ (¹®ÀÚ ÆÄÀÏÀ» ÀĞ¾î¼­)
- * ¹®ÀÚ ÆÄÀÏ·Î Ãâ·Â(¹®ÀÚ ÆÄÀÏ·Î ¾²±â )ÇÏ´Â Å¬·¡½º
- * ----------------------------------------------
- * -- ÀÔ·Â --
- * 1. node stream (¹®ÀÚ (reader) ÆÄÀÏ :FileReader)
+ * ë¬¸ì íŒŒì¼ì—ì„œ ì…ë ¥ë°›ì•„ì„œ(ë¬¸ì íŒŒì¼ì„ ì½ì–´ì„œ)
+ * ë¬¸ì íŒŒì¼ë¡œ ì¶œë ¥(ë¬¸ì íŒŒì¼ë¡œ ì“°ê¸°) í•˜ëŠ” í´ë˜ìŠ¤
+ * -----------------------------------------------
+ * -- ì…ë ¥ --
+ * 1. node stream (ë¬¸ì(reader) íŒŒì¼ : FileReader)
  * 2. filter stream (reader --> reader : BufferedReader)
- * 3. ÀÔ·Â filter stream ÀÇ ÁÙ´ÜÀ§  ÀÔ·Â ¸Ş¼Òµå »ç¿ë
- * readLine()
+ * 3. ì…ë ¥ filter stream ì˜ ì¤„ë‹¨ìœ„ ì…ë ¥ ë©”ì†Œë“œ ì‚¬ìš©
+ *    readLine()
  * 
- * -- Ãâ·Â --
- * 4. node stream (¹®ÀÚ(writer) ÆÄÀÏ : FileWriter)
+ * -- ì¶œë ¥ --
+ * 4. node stream (ë¬¸ì(writer) íŒŒì¼ : FileWriter)
  * 5. filter stream (writer --> writer : PrintWriter)
- * 6. Ãâ·Â filter stream ÀÇ ÁÙ´ÜÀ§ Ãâ·Â ¸Ş¼Òµå »ç¿ë
+ * 6. ì¶œë ¥ filter stream ì˜ ì¤„ë‹¨ìœ„ ì¶œë ¥ ë©”ì†Œë“œ ì‚¬ìš©
  *    println()
  * 
- * -- Á¤¸® --
- * 7. ÀÔ·Â filter stream ´İ±â
- * 8. Ãâ·Â filter stream ´İ±â
+ * -- ì •ë¦¬ --
+ * 7. ì…ë ¥ filter stream ë‹«ê¸°
+ * 8. ì¶œë ¥ filter stream ë‹«ê¸°
  * 
- * @author Taim
+ * @author 304
  *
  */
 public class TextFileCopy {
 
 	public static void main(String[] args) throws IOException {
-		// 1. ÀÔ·Â node stream : FileReader
+		// 1. ì…ë ¥ node stream : FileReader
 		FileReader fr = new FileReader("out.txt");
 		
-		// 2. ÀÔ·Â filter stream : BufferedReader
-		BufferedReader br = new BufferedReader(fr);
+		// 2. ì…ë ¥ filter stream : BufferedReader
+		BufferedReader br = 
+				new BufferedReader(fr);
+		// ====== ì…ë ¥ ìŠ¤íŠ¸ë¦¼ë“¤ ì„ ì–¸, ì´ˆê¸°í™”
 		
-		// ===== ÀÔ·Â ½ºÆ®¸²µé ¼±¾ğ , ÃÊ±âÈ­
-		// 4. Ãâ·Â node stream : FileWriter
+		// 4. ì¶œë ¥ node stream : FileWriter
 		FileWriter fw = new FileWriter("copied.txt");
 		
-		// 5. Ãâ·Â filter stream : PrintWriter 
+		// 5. ì¶œë ¥ filter stream : PrintWriter
 		PrintWriter out = new PrintWriter(fw);
+		// ====== ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ë“¤ ì„ ì–¸, ì´ˆê¸°í™”
 		
-		// 3. ÀĞ±â ÀÛ¾÷ : readLine()
+		// 3. ì½ê¸° ì‘ì—… : readLine()
 		String input = null;
 		
 		while ((input = br.readLine()) != null) {
-			// 6. ¾²±â ÀÛ¾÷ : println()
-			out.println("º¹»çµÈ ³»¿ë:" + input);
-			// È­¸é Ãâ·Â °°ÀÌ
-			System.out.println("ÆÄÀÏ¿¡¼­ ÀĞÀº µ¥ÀÌÅÍ:"+ input);
-			
-			System.out.println("ÆÄÀÏ º¹»ç°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
-			
-			// 7. ÀÔ·Â filter stream ´İ±â
-			br.close();
-			// 8. Ãâ·Â filter stream ´İ±â
-		    fw.close();
+			// 6. ì“°ê¸° ì‘ì—… : println()
+			out.println("ë³µì‚¬ëœ ë‚´ìš©:" + input);
+			// í™”ë©´ ì¶œë ¥ ê°™ì´
+			System.out.println("íŒŒì¼ì—ì„œ ì½ì€ ë°ì´í„°:" + input); 
 		}
 		
+		System.out.println("íŒŒì¼ ë³µì‚¬ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		
+		// 7. ì…ë ¥ filter stream ë‹«ê¸°
+		br.close();
+		
+		// 8. ì¶œë ¥ filter stream ë‹«ê¸°
+		out.close();
+
 	}
 
 }

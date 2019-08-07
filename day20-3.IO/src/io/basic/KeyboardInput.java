@@ -5,64 +5,63 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/** 
- * Ç¥ÁØ ÀÔ·ÂÀÎ Å°º¸µå ÀÔ·ÂÀ» ¹Ş¾Æ¼­
- * Ç¥ÁØ Ãâ·ÂÀÎ ¸ğ´ÏÅÍ(ÄÜ¼ÖÃ¢) Ãâ·ÂÇÏ´Â Å¬·¡½º
- * -------------------------------------------------
- * 1. node stream   (Å°º¸µå = System.in) : inputStream
+/**
+ * í‘œì¤€ ì…ë ¥ì¸ í‚¤ë³´ë“œ ì…ë ¥ì„ ë°›ì•„ì„œ
+ * í‘œì¤€ ì¶œë ¥ì¸ ëª¨ë‹ˆí„°(ì½˜ì†”ì°½)ì¶œë ¥í•˜ëŠ” í´ë˜ìŠ¤
+ * --------------------------------------------------
+ * 1. node stream   (í‚¤ë³´ë“œ = System.in : InputStream)
  * 2. filter stream (stream --> reader : InputStreamReader)
- * 	  1. ¹ÙÀÌÆ® Å°º¸µå ÀÎÇ²½ºÆ®¸²À»
- * 	  2. ¹ÙÀÌÆ® ¹®ÀÚ·Î º¯°æ
- *    (Å°º¸µå´Â »ç½Ç ¹®ÀÚÀÔ·ÂÀÌ±â ¶§¹®¿¡)
- *    
- * 3. filter stream (reader --> reader : BufferedReader)
- *    2 ¹ÙÀÌÆ® ¹®ÀÚ¸¦ 1ÁÙ ´ÜÀ§·Î ÀĞ¾î¼­
- *    ½ºÆ®¸µÀ¸·Î ¸¸µé ¼ö ÀÖ´Â Æí¸®ÇÑ ¸Ş¼Òµå¸¦ »ç¿ëÇÏ±â À§ÇØ¼­
- *    
- * 4. 3¿¡¼­ ¸¸µé¾îÁø filter stream °´Ã¼¸¦ »ç¿ëÇØ¼­
- *    read() ·Î ÀĞ¾îµéÀÎ´Ù.
- *    
- * 5. 4¿¡¼­ ÀĞ¾îµéÀÎ ³»¿ëÀ» Ç¥ÁØ Ãâ·Â
- *    (¸ğ´ÏÅÍ = system.out)ÀåÄ¡¿¡ Ãâ·Â
- *    
- * 6. ¸¶Áö¸· ÇÊÅÍ ½ºÆ®¸²µéÀ» ´İ¾Æ¼­ ÀÚ¿ø ÇØÁ¦
+ *    1 ë°”ì´íŠ¸ í‚¤ë³´ë“œ ì¸í’‹ìŠ¤íŠ¸ë¦¼ì„ 
+ *    2 ë°”ì´íŠ¸ ë¬¸ìë¡œ ë³€ê²½
+ *    (í‚¤ë³´ë“œëŠ” ì‚¬ì‹¤ ë¬¸ìì…ë ¥ì´ê¸°ë•Œë¬¸ì—)
  * 
- * @author Taim
+ * 3. filter stream (reader --> reader : BufferedReader)
+ *    2 ë°”ì´íŠ¸ ë¬¸ìë¥¼ 1ì¤„ ë‹¨ìœ„ë¡œ ì½ì–´ì„œ
+ *    ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë§Œë“¤ ìˆ˜ ìˆëŠ” í¸ë¦¬í•œ ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ
+ *    
+ * 4. 3ì—ì„œ ë§Œë“¤ì–´ì§„ filter stream ê°ì²´ë¥¼ ì‚¬ìš©í•´ì„œ
+ *    read() ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
+ *    
+ * 5. 4ì—ì„œ ì½ì–´ë“¤ì¸ ë‚´ìš©ì„ í‘œì¤€ ì¶œë ¥
+ *    (ëª¨ë‹ˆí„° = System.out) ì¥ì¹˜ì— ì¶œë ¥
+ *    
+ * 6. ë§ˆì§€ë§‰ í•„í„° ìŠ¤íŠ¸ë¦¼ë“¤ì„ ë‹«ì•„ì„œ ìì› í•´ì œ
+ * 
+ * 
+ * @author 304
  *
  */
 public class KeyboardInput {
 
-	public static void main(String[] args) throws IOException{
-	// 1. ÀÔ·Â ½ºÆ®¸² (Ç¥ÁØ ÀÔ·Â : Å°º¸µå)
-		InputStream in = System.in;
+	public static void main(String[] args) throws IOException {
+
+		// 1. ì…ë ¥ ìŠ¤íŠ¸ë¦¼(í‘œì¤€ ì…ë ¥ : í‚¤ë³´ë“œ)
+//		InputStream in = System.in;
 		
-		// 2. ³ëµå ½ºÆ®¸²À» Æ÷ÀåÇÒ ÇÊÅÍ ½ºÆ®¸²
-		// InputStream ===> Reader ¹Ù²ãÁÖ´Â ÇÊÅÍ ½ºÆ®¸² Àû¿ë
-		InputStreamReader ir = new InputStreamReader(in);
+		// 2. ë…¸ë“œ ìŠ¤íŠ¸ë¦¼ì„ í¬ì¥í•  í•„í„° ìŠ¤íŠ¸ë¦¼
+		//    InputStream ===> Reader ë°”ê¿”ì£¼ëŠ” í•„í„° ìŠ¤íŠ¸ë¦¼ ì ìš©
+//		InputStreamReader ir = new InputStreamReader(in);
 		
-		// 3. 2ÀÇ ÇÊÅÍ ½ºÆ®¸²À» Æí¸®ÇÑ »ç¿ëÀ» À§ÇÑ '
-		//    ´Ù¸¥ ÇÊÅÍ ½ºÆ®¸²À¸·Î Æ÷Àå
-		BufferedReader br = new BufferedReader(ir);
+		// 3. 2ì˜ í•„í„° ìŠ¤íŠ¸ë¦¼ì„ í¸ë¦¬í•œ ì‚¬ìš©ì„ ìœ„í•œ
+		//    ë‹¤ë¥¸ í•„í„° ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ í¬ì¥
+//		BufferedReader br = new BufferedReader(ir);
+		BufferedReader br = 
+				new BufferedReader(
+						new InputStreamReader(System.in));
 		
-		// 3. 2ÀÇ ÇÊÅÍ ½ºÆ®¸²À» Æí¸®ÇÑ »ç¿ëÀ» À§ÇÑ '
-				//    ´Ù¸¥ ÇÊÅÍ ½ºÆ®¸²À¸·Î Æ÷Àå
-//				BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
-				
-		System.out.println("°ªÀ» ÀÔ·ÂÇÏ¼¼¿ä. (crtl + z ÀÔ·Â½Ã Áß´Ü µË´Ï´Ù.)");
-		// 4.  3ÀÇ ÇÊÅÍ ½ºÆ®¸²ÀÇ Æí¸®ÇÑ ¸Ş¼Òµå »ç¿ëÇØ¼­ ÀĞ±â
-		String readData = null;	
-		while ((readData = br.readLine()) !=null){
-			// 5. ÀĞÀº µ¥ÀÌÅÍ°¡ null ÀÌ ¾Æ´Ï¸é
-			//    Ç¥ÁØ Ãâ·Â¿¡ Ãâ·ÂÇÏ±â
-			System.out.println("ÀĞÀº µ¥ÀÌÅÍ " + readData);
-			
-		// 6. ÀÚ¿ø ÇØÁ¦
-			br.close();
-			
+		
+		System.out.println("ê°’ì„ ì…ë ¥í•˜ì„¸ìš”. "
+				       + "(crtl + z ì…ë ¥ì‹œ ì¤‘ë‹¨ë©ë‹ˆë‹¤.)");
+		// 4. 3ì˜ í•„í„° ìŠ¤íŠ¸ë¦¼ì˜ í¸ë¦¬í•œ ë©”ì†Œë“œ ì‚¬ìš©í•´ì„œ ì½ê¸°
+		String readData = null;
+		while ((readData = br.readLine()) != null) {
+			// 5. ì½ì€ ë°ì´í„°ê°€ null ì´ ì•„ë‹ˆë©´
+			//    í‘œì¤€ ì¶œë ¥ì— ì¶œë ¥í•˜ê¸°
+			System.out.println("ì½ì€ ë°ì´í„°:" + readData);
 		}
 		
-		
-
+		// 6. ìì› í•´ì œ
+		br.close();
 	}
 
 }

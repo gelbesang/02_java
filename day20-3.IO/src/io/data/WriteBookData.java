@@ -1,45 +1,47 @@
 package io.data;
 
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import io.object.Book;
 
 /**
- * °´Ã¼ »ı¼º ÈÄ °´Ã¼ µ¥ÀÌÅÍ ÇÊµå(¸â¹ö º¯¼ö)¸¦ Ãâ·Â
- * -----------------------------------------------
- * -- ÀÔ·Â --
- * 1. Book °´Ã¼ »ı¼º
+ * ê°ì²´ ìƒì„± í›„ ê°ì²´ì˜ ë°ì´í„° í•„ë“œ(ë©¤ë²„ ë³€ìˆ˜)ë¥¼ ì¶œë ¥
+ * -------------------------------------------------
+ * -- ì…ë ¥ --
+ * 1. Book ê°ì²´ ìƒì„±
  * 
+ * -- ì¶œë ¥ --
+ * 2. node stream   (íŒŒì¼ : FileOutputStream)
+ * 3. filter stream (data ë‹¨ìœ„ ì¶œë ¥ : DataOutputStream)
+ * 4. write ì‘ì—… : filter stream ì˜ ë©”ì†Œë“œ ì‚¬ìš©
+ *    writeChar(), writeInt(), writeDouble(), writeUTF() ..
  * 
- * -- Ãâ·Â --
- * 2. node stream (ÆÄÀÏ : FileOutputStream)
- * 3. filter stream (data ´ÜÀ§ Ãâ·Â : DataOutSteam )
- * 4. write ÀÛ¾÷ : filter stream ÀÇ ¸Ş¼Òµå »ç¿ë
- *    writeChar(), writeInt() writeDouble(),writeUTF() ...
+ * -- ì •ë¦¬ --
+ * 5. ì¶œë ¥ filter stream ë‹«ê¸°
  * 
- * -- Á¤¸® --
- * 
- * 
- * @author Taim
+ * @author 304
  *
  */
 public class WriteBookData {
 
 	public static void main(String[] args) throws IOException {
-		// 1. Book °´Ã¼ »ı¼º (ÀÔ·Â¿ë)
+		// 1. Book ê°ì²´ ìƒì„± (ì…ë ¥ìš©)
 		Book vegetarian = 
-				new Book(1, "9788936433598", "Ã¤½ÄÁÖÀÇÀÚ"
-						  , "ÇÑ°­", "Ã¢ºñ", 247, 10800, 10);
+				new Book(1, "9788936433598", "ì±„ì‹ì£¼ì˜ì"
+						  , "í•œê°•", "ì°½ë¹„", 247, 10800, 10);
 		
-		// 2. Ãâ·Â node stream
-		FileOutputStream fos = new FileOutputStream("book.data");
+		// 2. ì¶œë ¥ node stream
+		FileOutputStream fos = 
+				new FileOutputStream("book.data");
 		
-		// 3. Ãâ·Â filter stream 
-		DataOutputStream out = new DataOutputStream(fos);
+		// 3. ì¶œë ¥ filter stream
+		DataOutputStream out = 
+				new DataOutputStream(fos);
 		
-		// 4. write ÀÛ¾÷ : filter stream ÀÇ ¸Ş¼Òµå »ç¿ë
+		// 4. write ì‘ì—… : filter stream ì˜ ë©”ì†Œë“œ ì‚¬ìš©
 		out.writeInt(vegetarian.getSequence());
 		out.writeUTF(vegetarian.getIsbn());
 		out.writeUTF(vegetarian.getTitle());
@@ -49,11 +51,10 @@ public class WriteBookData {
 		out.writeInt(vegetarian.getPrice());
 		out.writeInt(vegetarian.getQuantity());
 		
-		System.out.println(" book.data ÆÄÀÏÀÌ »ı¼º µÇ¾ú½À´Ï´Ù.");
+		System.out.println("book.data íŒŒì¼ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		
-		// 5. Ãâ·Â filter stream ´İ±â
+		// 5. ì¶œë ¥ filter stream ë‹«ê¸°
 		out.close();
-		
 	}
 
 }

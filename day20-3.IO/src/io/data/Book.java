@@ -3,72 +3,72 @@ package io.data;
 import java.io.Serializable;
 
 /**
- * Ã¥ ÇÑ ±ÇÀÇ Á¤º¸¸¦ ´ã´Â Å¬·¡½º
+ * ì±… í•œ ê¶Œì˜ ì •ë³´ë¥¼ ë‹´ëŠ” í´ë˜ìŠ¤
  * ----------------------------
- * ÀÏ·Ã¹øÈ£  : sequence  : int
+ * ì¼ë ¨ë²ˆí˜¸  : sequence  : int
  * ISBN      : isbn      : String
- * Á¦¸ñ      : title     : String
- * ÀúÀÚ      : author    : String
- * ÃâÆÇ»ç    : company   : String
- * ÆäÀÌÁö ¼ö : totalPage : int
- * °¡°İ      : price     : int
- * Àç°í¼ö·®  : quantity  : int
+ * ì œëª©      : title     : String
+ * ì €ì      : author    : String
+ * ì¶œíŒì‚¬    : company   : String
+ * í˜ì´ì§€ ìˆ˜ : totalPage : int
+ * ê°€ê²©      : price     : int
+ * ì¬ê³ ìˆ˜ëŸ‰  : quantity  : int
  * ----------------------------
- * »ı¼ºÀÚ Áßº¹Á¤ÀÇ
- * (±âº»»ı¼ºÀÚ ¸í½Ã, ¸Å°³º¯¼ö »ı¼ºÀÚ Áßº¹Á¤ÀÇ)
+ * ìƒì„±ì ì¤‘ë³µì •ì˜
+ * (ê¸°ë³¸ìƒì„±ì ëª…ì‹œ, ë§¤ê°œë³€ìˆ˜ ìƒì„±ì ì¤‘ë³µì •ì˜)
  * ----------------------------
- * ¸Ş¼Òµå :
- * -- ±â´É ¸Ş¼Òµå 
- * void print() : Ã¥ÀÇ Á¤º¸¸¦ Ãâ·ÂÇÏ´Â ¸Ş¼Òµå
- * void buy(int amount)  : amount ¸¸Å­ Ã¥ÀÇ Àç°í¸¦ ´Ã¸®´Â ¸Ş¼Òµå
- * void sell(int amount) : amount ¸¸Å­ Ã¥ÀÇ Àç°í¸¦ ÁÙÀÌ´Â ¸Ş¼Òµå
+ * ë©”ì†Œë“œ :
+ * -- ê¸°ëŠ¥ ë©”ì†Œë“œ 
+ * void print() : ì±…ì˜ ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” ë©”ì†Œë“œ
+ * void buy(int amount)  : amount ë§Œí¼ ì±…ì˜ ì¬ê³ ë¥¼ ëŠ˜ë¦¬ëŠ” ë©”ì†Œë“œ
+ * void sell(int amount) : amount ë§Œí¼ ì±…ì˜ ì¬ê³ ë¥¼ ì¤„ì´ëŠ” ë©”ì†Œë“œ
  * 
- * -- °¢ ÇÊµå¸¦ ¼³Á¤ÇÏ´Â ¸Ş¼Òµå
- * -- ÀÚ¹Ù ºóÁî(Java Beans) ±Ô°İ¿¡ ÀÇÇÑ Á¢±ÙÀÚ/¼öÁ¤ÀÚ ¸Ş¼Òµå
+ * -- ê° í•„ë“œë¥¼ ì„¤ì •í•˜ëŠ” ë©”ì†Œë“œ
+ * -- ìë°” ë¹ˆì¦ˆ(Java Beans) ê·œê²©ì— ì˜í•œ ì ‘ê·¼ì/ìˆ˜ì •ì ë©”ì†Œë“œ
  * -- getter/setter
  * 
- * getter ÀÛ¼º½Ã ¸Ş¼Òµå ÀÌ¸§ ±Ô°İ
- *  ==> getÀ¸·Î ½ÃÀÛÇÏ°í ¸â¹öº¯¼öÇÊµåÀÇ Ã¹±ÛÀÚ¸¦ ´ë¹®ÀÚ·Î Á¶ÇÕ
- *      ¸Å°³º¯¼ö´Â ¾øÀ½.
- *      ¸®ÅÏÅ¸ÀÔÀÌ ÇØ´ç ¸â¹öº¯¼ö ÇÊµåÀÇ Å¸ÀÔ°ú ¸ÂÃã
+ * getter ì‘ì„±ì‹œ ë©”ì†Œë“œ ì´ë¦„ ê·œê²©
+ *  ==> getìœ¼ë¡œ ì‹œì‘í•˜ê³  ë©¤ë²„ë³€ìˆ˜í•„ë“œì˜ ì²«ê¸€ìë¥¼ ëŒ€ë¬¸ìë¡œ ì¡°í•©
+ *      ë§¤ê°œë³€ìˆ˜ëŠ” ì—†ìŒ.
+ *      ë¦¬í„´íƒ€ì…ì´ í•´ë‹¹ ë©¤ë²„ë³€ìˆ˜ í•„ë“œì˜ íƒ€ì…ê³¼ ë§ì¶¤
  * 
- * ¿¹) sequence ÇÊµåÀÇ getter ´Â ´ÙÀ½ÀÇ ±Ô°İÀ» °®´Â´Ù.
+ * ì˜ˆ) sequence í•„ë“œì˜ getter ëŠ” ë‹¤ìŒì˜ ê·œê²©ì„ ê°–ëŠ”ë‹¤.
  * int getSequnece() {
  * 		return this.requence;
  * }
  * 
- * setter ÀÛ¼º½Ã ¸Ş¼Òµå ÀÌ¸§ ±Ô°İ
- *  ==> setÀ¸·Î ½ÃÀÛÇÏ°í ¸â¹öº¯¼ö ÇÊµåÀÇ Ã¹±ÛÀÚ¸¦ ´ë¹®ÀÚ·Î Á¶ÇÕ
- *      ¸Å°³º¯¼ö´Â ÇØ´ç ¸â¹öº¯¼ö ÇÊµå¿Í °°Àº Å¸ÀÔ°ú º¯¼ö·Î ¹Ş´Â´Ù.
- *      ¸®ÅÏ°ªÀÌ ¾øÀÌ ÀÛ¼º
+ * setter ì‘ì„±ì‹œ ë©”ì†Œë“œ ì´ë¦„ ê·œê²©
+ *  ==> setìœ¼ë¡œ ì‹œì‘í•˜ê³  ë©¤ë²„ë³€ìˆ˜ í•„ë“œì˜ ì²«ê¸€ìë¥¼ ëŒ€ë¬¸ìë¡œ ì¡°í•©
+ *      ë§¤ê°œë³€ìˆ˜ëŠ” í•´ë‹¹ ë©¤ë²„ë³€ìˆ˜ í•„ë“œì™€ ê°™ì€ íƒ€ì…ê³¼ ë³€ìˆ˜ë¡œ ë°›ëŠ”ë‹¤.
+ *      ë¦¬í„´ê°’ì´ ì—†ì´ ì‘ì„±
  * void setSequence(int sequence) {
  *      this.sequcne = sequence;
  * }
  * 
- * ¸¸¾à ¸â¹öº¯¼ö ÇÊµå°¡ boolean Å¸ÀÔÀÌ¶ó¸é getterÀÇ ÀÌ¸§Àº
- * getÀ¸·Î ½ÃÀÛÇÏÁö ¾Ê°í is·Î ½ÃÀÛÇÑ´Ù.
+ * ë§Œì•½ ë©¤ë²„ë³€ìˆ˜ í•„ë“œê°€ boolean íƒ€ì…ì´ë¼ë©´ getterì˜ ì´ë¦„ì€
+ * getìœ¼ë¡œ ì‹œì‘í•˜ì§€ ì•Šê³  isë¡œ ì‹œì‘í•œë‹¤.
  * ==================================================
- * 1. Ä¸½¶È­ Àû¿ë : ¸â¹öº¯¼ö´Â private
- *                  »ı¼ºÀÚ, ¸Ş¼Òµå´Â public
+ * 1. ìº¡ìŠí™” ì ìš© : ë©¤ë²„ë³€ìˆ˜ëŠ” private
+ *                  ìƒì„±ì, ë©”ì†Œë“œëŠ” public
  *                  
- * 2. ¸Ş¼Òµå ÀçÁ¤ÀÇ : toString(), 
- *                    equals() & hashCode() ÀçÁ¤ÀÇ
- *                    ==> sequence ÇÊµå ±âÁØ ÀçÁ¤ÀÇ  
+ * 2. ë©”ì†Œë“œ ì¬ì •ì˜ : toString(), 
+ *                    equals() & hashCode() ì¬ì •ì˜
+ *                    ==> sequence í•„ë“œ ê¸°ì¤€ ì¬ì •ì˜  
  *                    
- * 3. ¸Ş¼Òµå ¼öÁ¤ : print() ¸Ş¼Òµå´Â this °´Ã¼ Ãâ·ÂÄÚµå·Î º¯°æ                                     
+ * 3. ë©”ì†Œë“œ ìˆ˜ì • : print() ë©”ì†Œë“œëŠ” this ê°ì²´ ì¶œë ¥ì½”ë“œë¡œ ë³€ê²½                                     
  * ==================================================
  * @author 304
  *
  */
-public class Book implements Serializable{
+public class Book implements Serializable {
 	private int sequence;
 	private String isbn;
-	transient private String title;
-	transient private String author;
-	transient private String company;
-	transient private int totalPage;
-	transient private int price;
-	transient private int quantity;
+	private String title;
+	private String author;
+	private String company;
+	private int totalPage;
+	private int price;
+	private int quantity;
 	
 	public Book() {
 		
@@ -102,22 +102,22 @@ public class Book implements Serializable{
 		this.quantity = quantity;
 	}
 
-	// sequence ¸â¹ö º¯¼öÀÇ getter
+	// sequence ë©¤ë²„ ë³€ìˆ˜ì˜ getter
 	public int getSequence() {
 		return sequence;
 	}
 	
-	// sequence ÀÇ setter
+	// sequence ì˜ setter
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
 	}
 	
-	// isbn¸â¹öº¯¼ö ÇÊµå¿¡ ´ëÇÑ getter
+	// isbnë©¤ë²„ë³€ìˆ˜ í•„ë“œì— ëŒ€í•œ getter
 	public String getIsbn() {
 		return isbn;
 	}
 	
-	// isbnÀÇ setter
+	// isbnì˜ setter
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
@@ -198,10 +198,10 @@ public class Book implements Serializable{
 
 	@Override
 	public String toString() {
-		String message = "Ã¥ Á¤º¸[ÀÏ·Ã¹øÈ£:%d, ISBN:%s"
-	             + ", Á¦¸ñ:%s, ÀúÀÚ:%s"
-	             + ", ÃâÆÇ»ç:%s, ÆäÀÌÁö:%d"
-	             + ", °¡°İ:%d, Àç°í:%d]";
+		String message = "ì±… ì •ë³´[ì¼ë ¨ë²ˆí˜¸:%d, ISBN:%s"
+	             + ", ì œëª©:%s, ì €ì:%s"
+	             + ", ì¶œíŒì‚¬:%s, í˜ì´ì§€:%d"
+	             + ", ê°€ê²©:%d, ì¬ê³ :%d]";
 		
 		return String.format(message, sequence, isbn, title, author, company, totalPage, price, quantity);
 	}
@@ -210,6 +210,8 @@ public class Book implements Serializable{
 	
 	
 }
+
+
 
 
 

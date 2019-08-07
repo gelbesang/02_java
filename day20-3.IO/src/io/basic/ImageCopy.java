@@ -1,86 +1,80 @@
 package io.basic;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * ¹ÙÀÌÆ® Ã³¸®¸¸ ÇÒ ¼ö ÀÖ´Â
+ * ë°”ì´íŠ¸ ì²˜ë¦¬ë§Œ í•  ìˆ˜ ìˆëŠ”
  * 
- * ÀÌ¹ÌÁö ÆÄÀÏÀ» ÀÔ·ÂÀ¸·Î ¹Ş¾Æ¼­
- * ÀÌ¹ÌÁö ÆÄÀÏ·Î Ãâ·ÂÇÏ´Â 
- * (stream À¸·Î¸¸ ÀÛ¾÷ÇÏ´Â)
+ * ì´ë¯¸ì§€ íŒŒì¼ì„ ì…ë ¥ìœ¼ë¡œ ë°›ì•„ì„œ
+ * ì´ë¯¸ì§€ íŒŒì¼ë¡œ ì¶œë ¥í•˜ëŠ” 
+ * (stream ìœ¼ë¡œë§Œ ì‘ì—…í•˜ëŠ”)
  * 
- * ÀÌ¹ÌÁö º¹»ç Å¬·¡½º
- * ------------------------------------------------
- * -- ÀÔ·Â --
- * 1. node stream (stream :FileInputStream)
- * 2. read ÀÛ¾÷ : node stream ¸Ş¼Òµå read(byte [])
+ * ì´ë¯¸ì§€ ë³µì‚¬ í´ë˜ìŠ¤
+ * --------------------------------------
+ * -- ì…ë ¥ --
+ * 1. node stream (stream : FileInputStream)
+ * 2. read ì‘ì—… : node stream ë©”ì†Œë“œ read(byte[]) 
  * 
- * -- Ãâ·Â --
+ * -- ì¶œë ¥ --
  * 3. node stream (stream : FileOutputStream)
- * 4. write ÀÛ¾÷ : node stream ¸Ş¼Òµå write(btye[])
+ * 4. write ì‘ì—… : node stream ë©”ì†Œë“œ write(byte[])
  * 
- * -- Á¤¸® --
- * 5. ÀÔ·Â node ´İ±â
- * 6. Ãâ·Â node ´İ±â
+ * -- ì •ë¦¬ --
+ * 5. ì…ë ¥ node ë‹«ê¸°
+ * 6. ì¶œë ¥ node ë‹«ê¸°
  * 
- * @author Taim
+ * @author 304
  *
  */
 public class ImageCopy {
 
 	public static void main(String[] args) throws IOException {
-		// 1. ÀÔ·Â node stream : FileInputStream
-		FileInputStream in = new FileInputStream("·¹½ºÅä¶û½º.png");
+		// 1. ì…ë ¥ node stream : FileInputStream
+		FileInputStream in = 
+				new FileInputStream("Tulips.jpg");
 		
-		// ===== ÀÔ·Â node stream ¼±¾ğ, ÃÊ±âÈ­ 
+		// ===== ì…ë ¥ node stream ì„ ì–¸, ì´ˆê¸°í™” ì™„ë£Œ
 		
-		// 3. Ãâ·Â node stream : FileOutputStream
-		FileOutputStream out = new FileOutputStream("·¹½ºÅä¶û½º-copied.png");
+		// 3. ì¶œë ¥ node stream : FileOutputStream
+		FileOutputStream out = 
+				new FileOutputStream("Tulips-copied.jpg");
 		
-		// ===== Ãâ·Â node stream ¼±¾ğ, ÃÊ±âÈ­ ¿À³ª·á
+		// ==== ì¶œë ¥ node stream ì„ ì–¸, ì´ˆê¸°í™” ì™„ë£Œ
 		
-		// 2. raed ÀÛ¾÷ : read(byte[]) ¸Ş¼Òµå
-		//    ÀĞ±â ÀÛ¾÷ÀÇ ¸Ş°³º¯¼ö·Î »ç¿ëµÉ
-		//    byte[]À» ¼±¾ğ
+		// 2. read ì‘ì—… : read(byte[]) ë©”ì†Œë“œ
+		//    ì½ê¸° ì‘ì—…ì˜ ë§¤ê°œë³€ìˆ˜ë¡œ ì‚¬ìš©ë  
+		//    byte[]ì„ ì„ ì–¸
 		
-		// (1) ¹ÙÀÌÆ® ¹è¿­ : buffer
+		// (1) ë°”ì´íŠ¸ ë°°ì—´ : buffer
 		byte[] buffer = new byte[4096];
 		
-		// (2) read(byte []) ¸Ş¼Òµå´Â ÀĞ¾î µéÀÎ ¹ÙÀÌÆ® ¼ö
-		//     ¸¦ Á¤¼ö·Î ¸®ÅÏÇÏ´Â ¸Ş¼Òµå
-		//     ÀĞÀº µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é -1 ¸®ÅÏ
+		// (2) read(byte[]) ë©”ì†Œë“œëŠ” ì½ì–´ë“¤ì¸ ë°”ì´íŠ¸ ìˆ˜
+		//     ë¥¼ ì •ìˆ˜ë¡œ ë¦¬í„´í•˜ëŠ” ë©”ì†Œë“œ
+		//     ì½ì€ ë°ì´í„°ê°€ ì—†ìœ¼ë©´ -1 ë¦¬í„´
 		int readSize = 0;
 		int repeat = 0;
 		
 		// (3) read()
 		while ((readSize = in.read(buffer)) != -1) {
-			// 4. writer (byte)[] ÀÛ¾÷ : Ãâ·Â node stream ¸Ş¼Òµå·Î ÀÛ¾÷
+			// 4. write(byte[]) ì‘ì—… : 
+			//   ì¶œë ¥ node stream ë©”ì†Œë“œë¡œ ì‘ì—…
 			out.write(buffer);
 			
-			// È­¸é¿¡ ÀÛ¾÷ ³»¿ë Ãâ·Â
-			System.out.printf("ÀĞÀº ¹ÙÀÌÆ® : %d\t, ¹İº¹ È½¼ö %d%n", readSize, repeat);
-			
+			// í™”ë©´ì— ì‘ì—… ë‚´ìš© ì¶œë ¥
+			System.out.printf("ì½ì€ ë°”ì´íŠ¸:%d\t, ë°˜ë³µ íšŸìˆ˜:%d%n"
+					          , readSize, ++repeat);
 		}
-		System.out.println("ÀÌ¹ÌÁö ÆÄÀÏ º¹»ç°¡ ¿Ï·á µÇ¾ú½À´Ï´Ù.");
 		
+		System.out.println("ì´ë¯¸ì§€ íŒŒì¼ ë³µì‚¬ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		
-		// 5,6 ÀÔÃâ·Â node ´İ±â
-		
+		// 5, 6 ì…ì¶œë ¥ node ë‹«ê¸°
 		in.close();
 		out.close();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }
+
+

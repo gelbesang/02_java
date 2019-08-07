@@ -1,47 +1,45 @@
 package io.data;
 
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * °´Ã¼ÀÇ µ¥ÀÌÅÍ°¡ ´ã±è ÆÄÀÏÀ» ÀĞ¾î¼­
- * µ¥ÀÌÅÍ ´ÜÀ§·Î ÀÔ·Â ¹Ş°í 
- * ±× ³»¿ëÀ» °´Ã¼·Î »ı¼º
- * -------------------------------------
- * -- ÀÔ·Â --
- * 1. node stream (ÆÄÀÏ : FileInputStream)
- * 2. filter stream (µ¥ÀÌÅÍ ´ÜÀ§ ÀÔ·Â : Data InputStream)
- * 3. read ÀÛ¾÷ : filter stream ¸Ş¼Òµå »ç¿ë
- *    readInt(), readChar(), readUTF() ...
- *    
+ * ê°ì²´ì˜ ë°ì´í„°ê°€ ë‹´ê¸´ íŒŒì¼ì„ ì½ì–´ì„œ
+ * ë°ì´í„° ë‹¨ìœ„ë¡œ ì…ë ¥ë°›ê³ 
+ * ê·¸ ë‚´ìš©ì„ ê°ì²´ë¡œ ìƒì„±
+ * --------------------------------------
+ * -- ì…ë ¥ --
+ * 1. node stream   (íŒŒì¼ : FileInputStream)
+ * 2. filter stream (ë°ì´í„° ë‹¨ìœ„ ì…ë ¥ : DataInputStream)
+ * 3. read ì‘ì—… : filter stream ë©”ì†Œë“œ ì‚¬ìš©
+ *    readInt(), readChar(), readUTF()...
  * 
- * -- Ãâ·Â --
- * 4. read ¸¦ ÅëÇØ¼­ ¾òÀº °ªÀ»·Î Book °´Ã¼ »ı¼º
- * 5. 4¿¡¼­ ¸¸µé¾îÁø Book °´Ã¼ Ç¥ÁØ Ãâ·Â
+ * -- ì¶œë ¥ --
+ * 4. read ë¥¼ í†µí•´ì„œ ì–»ì€ ê°’ë“¤ë¡œ Book ê°ì²´ ìƒì„±
+ * 5. 4ì—ì„œ ë§Œë“¤ì–´ì§„ Book ê°ì²´ í‘œì¤€ ì¶œë ¥ 
  * 
- * -- Á¤¸® --
- * 6.  ÀÔ·Â filter stream ´İ±â
+ * -- ì •ë¦¬ --
+ * 6. ì…ë ¥ filter stream ë‹«ê¸°
  * 
- * 
- * 
- * @author Taim
+ * @author 304
  *
  */
 public class ReadBookData {
 
 	public static void main(String[] args) throws IOException {
-		// 1. ÀÔ·Â node stream : FileInputStream
-		FileInputStream fis = 
+		// 1. ì…ë ¥ node stream : FileInputStream
+		FileInputStream fis =
 				new FileInputStream("book.data");
 		
-		// 2. ÀÔ·Â filter stream : Data InputStream
-		DataInputStream in = new DataInputStream(fis);
+		// 2. ì…ë ¥ filter stream : DataInputStream
+		DataInputStream in = 
+				new DataInputStream(fis);
 		
-		// 3. read ÀÛ¾÷ 
-		// (1) Book °´Ã¼ »ı¼º¿¡ ÇÊ¿äÇÑ °ªµé ÀĞ¾î¼­ º¯¼ö¿¡ ´ã±â
+		// 3. read ì‘ì—…
+		// (1) Book ê°ì²´ ìƒì„±ì— í•„ìš”í•œ ê°’ë“¤ ì½ì–´ì„œ ë³€ìˆ˜ì— ë‹´ê¸°\
+		//     ì£¼ì˜ : write ìˆœì„œëŒ€ë¡œ ì½ì–´ì•¼ í•¨
 		int sequence = in.readInt();
 		String isbn = in.readUTF();
 		String title = in.readUTF();
@@ -51,23 +49,20 @@ public class ReadBookData {
 		int price = in.readInt();
 		int quantity = in.readInt();
 		
-		// (2) °´Ã¼ÀÇ »ı¼º
-		Book vegiterian = new Book(sequence, isbn, title, author, company, totalPage, price, quantity);
+		// (2) Book ê°ì²´ ìƒì„±
+		Book vegiterian = 
+				new Book(sequence, isbn, title, author
+					  , company, totalPage, price, quantity);
 		
-		// 4. Ç¥ÁØ Ãâ·Â 
+		// 4. í‘œì¤€ ì¶œë ¥
 		System.out.println(vegiterian);
 		
-		// 5. ÀÔ·Â filter stream ´İ±â
+		// 5. ì…ë ¥ filter stream ë‹«ê¸°
 		in.close();
-		
-				
-		
-		
-		
-		
-		
-		
 		
 	}
 
 }
+
+
+
