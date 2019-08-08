@@ -27,8 +27,10 @@ public class StatementTest {
 	// DB 커넥션 정보를 static 상수로 선언
 	private static final String URL = 
 			"jdbc:oracle:thin:@//localhost:1521/XE";
-	private  static final String MYSQL_URL = 
+	
+	private static final String MYSQL_URL =
 			"jdbc:mysql://127.0.0.1:3306/emp?serverTimezone=Asia/Seoul";
+	
 	
 	private static final String USER = "SCOTT";
 	private static final String PASSWORD = "TIGER";
@@ -39,39 +41,37 @@ public class StatementTest {
 	public static void main(String[] args) {
 		// JDBC 연결에 필요한 객체들 선언
 		Connection connection = null;
-//		Statement stmt = null;
-		
+		Statement stmt = null;
 		ResultSet result = null;
 		
 		try {
 			// 1. 드라이버 로드 
 //			Class.forName(DIRVER);
 			Class.forName(MYSQL_DRIVER);
+			
 			// 2. 커넥션 맺기
 			connection =
-//					DriverManager.getConnection(URL, USER, PASSWORD);
 					DriverManager.getConnection(MYSQL_URL, USER, PASSWORD);
+//					DriverManager.getConnection(URL, USER, PASSWORD);
 			// 3. 쿼리 준비
-//			String jobSales = "'SALESMAN'";
-			System.out.println("조회 할 대상의 job을 입력하세요");
-			System.out.println("CLERK,SALESMAN, MANAGER,ANALYST, PREGIDENT");
+			System.out.println("조회할 대상의 JOB 을 입력하세요.");
+			System.out.println("CLERK, SALESMAN, MANAGER, ANALYST, PRESIDENT 중 선택");
 			String jobSales = new Scanner(System.in).nextLine();
+			
+			System.out.println("조회할 급여 값을 정수로 입력하세요.");
+			int salInput = new Scanner(System.in).nextInt();
+			
 			String sql = "SELECT e.empno"
 					+    "     , e.ename"
 					+    "     , e.job"
 					+    "     , e.sal"
 					+    "  FROM emp e"
-//					+    " WHERE e.job = " + jobSales
-					+    " WHERE e.job = ?"
-					+    "   AND e.sal > ?"
+					+    " WHERE e.job = '" + jobSales + "'"
+					+    "   AND e.sal > " + salInput 
 					+    " ORDER BY e.ename";
 			
-//			stmt = connection.createStatement();
-			pstmt = connectionprepareStatement(sql);
-			// ? 에 대한 값 매핑이 이루어 져야 구문이수행가능
-			pstmt.setString(1,"SALESMAN");
-		    pstmt.setInt(2, 1500);
-		    
+			stmt = connection.createStatement();
+			
 			// 4. 쿼리 실행   
 			result = stmt.executeQuery(sql);
 			
