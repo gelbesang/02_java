@@ -17,6 +17,7 @@ import java.util.List;
 import book.exception.DuplicateException;
 import book.exception.NotFoundException;
 import book.vo.Book;
+import book.vo.Price;
 
 public class JdbcBookShelf implements BookShelf {
 
@@ -51,7 +52,8 @@ public class JdbcBookShelf implements BookShelf {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 
 			// 3. 쿼리 준비
-			String sql = "INSERT INTO BOOK b (b.sequence, b.isbn, b.title, b.author, b.company, b.total_page, b.price, b.quantity) " 
+			String sql = "INSERT INTO BOOK b (b.sequence, b.isbn, b.title, b.author"
+					   + "                  , b.company, b.total_page, b.price, b.quantity) " 
 					   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -417,6 +419,65 @@ public class JdbcBookShelf implements BookShelf {
 		return books;
 	}
 	
+	@Override
+	public List<Book> getBooksByPrice(Price price) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet result = null;
+		List<Book> books = new ArrayList<>();
+		
+		try {
+			// 2. 커넥션 맺기
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+			// 3. 쿼리 준비
+			String sql = "SELECT b.sequence" 
+					+ "     , b.isbn" 
+					+ "     , b.title" 
+					+ "     , b.author" 
+					+ "     , b.company" 
+					+ "     , b.total_page" 
+					+ "     , b.price" 
+					+ "     , b.quantity" 
+					+ "     , b.reg_date" 
+					+ "     , b.mod_date" 
+					+ "  FROM BOOK b" 
+					+ " WHERE b.price BETWEEN ? AND ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, price.getMin());
+			pstmt.setInt(2, price.getMax());
+			
+			// 4. 쿼리 실행
+			result = pstmt.executeQuery();
+			
+			// 5. 결과 처리
+			while (result.next()) {
+				Book book = new Book();
+				
+				book.setSequence(result.getInt(1));
+				book.setIsbn(result.getString(2));
+				book.setTitle(result.getString(3));
+				book.setAuthor(result.getString(4));
+				book.setCompany(result.getString(5));
+				book.setTotalPage(result.getInt(6));
+				book.setPrice(result.getInt(7));
+				book.setQuantity(result.getInt(8));
+				
+				books.add(book);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("SQL 구문 오류!" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			// 6. 자원 해제
+			closeResources(conn, pstmt, result);
+		}
+		
+		return books;
+	}
+
 	
 	/**
 	 * 전달된 book 정보가 데이터베이스 테이블에 이미 존재하는지 검사
@@ -436,18 +497,9 @@ public class JdbcBookShelf implements BookShelf {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			
 			// 3. 쿼리 준비
-			String sql = "SELECT b.sequence" 
-					+ "     , b.isbn" 
-					+ "     , b.title" 
-					+ "     , b.author" 
-					+ "     , b.company" 
-					+ "     , b.total_page" 
-					+ "     , b.price" 
-					+ "     , b.quantity" 
-					+ "     , b.reg_date" 
-					+ "     , b.mod_date" 
-					+ "  FROM BOOK b" 
-					+ " WHERE b.sequence = ?";
+			String sql = "SELECT b.sequence    " 
+					   + "  FROM BOOK b        " 
+					   + " WHERE b.sequence = ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, book.getSequence());
@@ -496,316 +548,5 @@ public class JdbcBookShelf implements BookShelf {
 		}
 	}
 
+	
 }
-
-
-
-//package book.dao;
-//
-//import static book.dao.ConnectionInfo.DIRVER;
-//import static book.dao.ConnectionInfo.PASSWORD;
-//import static book.dao.ConnectionInfo.URL;
-//import static book.dao.ConnectionInfo.USER;
-//
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import book.exception.DuplicateException;
-//import book.exception.NotFoundException;
-//import book.vo.Book;
-//
-//public class JdbcBookShelf implements BookShelf {
-//
-//	// 커넥션 정보 : ConnnectionInfo 의 static 필드로 사용
-//	
-//	// 2. 생성자 
-//	public JdbcBookShelf() {
-//		// 1. 드라이버 로드
-//		try {
-//			Class.forName(DIRVER);
-//		} catch (ClassNotFoundException e) {
-//			System.err.println("드라이버 로드 오류!" 
-//		                      + e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	@Override
-//	public int add(Book book) throws DuplicateException {
-//		// INSERT 필요 객체 선언
-//		Connection conn = null;	
-//		PreparedStatement pstmt= null;
-//		try {
-//		// 2. 커넥션 맺기
-//			conn = DriverManager.getConnection(URL,USER,PASSWORD);
-//			// 3. 쿼리 준비
-//			
-//			String sql = "INSERT INTO BOOK b (b.sequence ,b.isbn, b.title, b.autor, b.company, b.total_page, b.price, b.quantity)"
-//					+ "   VALUES (?, ? ,? ,? ,? ,? ,? ,?)";
-//			
-//			
-//			//매핑
-//			pstmt.setInt(1, 1);
-//			pstmt.setString(2,"9788936433598");
-//			pstmt.setString(3,"채식주의자");
-//			pstmt.setString(4,"한강");
-//			pstmt.setString(5,"창비");
-//			pstmt.setInt(2,247);
-//			pstmt.setInt(2,10800);
-//			pstmt.setInt(2,10);
-//			
-//			// 4. 쿼리 실행
-//			int addCnt = pstmt.executeUpdate();
-//			if (addCnt > 0) {
-//				System.out.printf("%d 행이 입력되었습니다.%n", addCnt);
-//			}
-//			
-//		} catch (SQLException e) {
-//			System.err.println("SQL 구문 오류! " + e.getMessage());
-//			e.printStackTrace();
-//			
-//		} finally {
-//			// 6. 자원 해제
-//			try {
-//				if (pstmt != null) {
-//					pstmt.close();
-//				}
-//				if (conn != null) {
-//					conn.close();
-//				}
-//			} catch (SQLException e) {
-//				System.err.println("자원 해제 오류! " + e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
-//		return 1;
-//	}
-//
-//	@Override
-//	public int set(Book book) throws NotFoundException {
-//		// UPDATE 필요 객체 선언
-//		Connection conn = null;	
-//		PreparedStatement pstmt= null;
-//		
-//		try {
-//		// 2. 커넥션 맺기
-//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			// 3. 쿼리 준비
-//			String sql = "UPDATE Book b " 
-//					+ "       SET b.sequence = ?  "
-//					+ "         , b.isbn = ?  "
-//					+ "         , b.title = ?"  
-//					+ "         , b.autor = ?" 
-//					+ "         , b.company = ?" 
-//					+ "         , b.total = ?" 
-//					+ "         , b.total_page = ?" 
-//					+ "         , b.price =?" 
-//					+ "     WHERE b.sequence =?";
-//		
-//					pstmt = conn.prepareStatement(sql);
-//					
-//					pstmt.setInt(1, 1);
-//					pstmt.setString(2,"9788936433598");
-//					pstmt.setString(3,"채식주의자");
-//					pstmt.setString(4,"한강");
-//					pstmt.setString(5,"창비");
-//					pstmt.setInt(2,247);
-//					pstmt.setInt(2,10800);
-//					pstmt.setInt(2,10);
-//		
-//					// 4. 쿼리 실행
-//					int addCnt = pstmt.executeUpdate();
-//					if (addCnt > 0) {
-//						System.out.printf("%d 행이 업데이트 되었습니다.", addCnt);
-//					}
-//					
-//				} catch (SQLException e) {
-//					System.err.println("SQL 구문 오류! " + e.getMessage());
-//					e.printStackTrace();
-//					
-//				} finally {
-//					// 6. 자원 해제
-//					try {
-//						if (pstmt != null) {
-//							pstmt.close();
-//						}
-//						if (conn != null) {
-//							conn.close();
-//						}
-//					} catch (SQLException e) {
-//						System.err.println("자원 해제 오류! " + e.getMessage());
-//						e.printStackTrace();
-//					}
-//				}
-//				return 1;
-//			}
-//
-//	@Override
-//	public int remove(Book book) throws NotFoundException {
-//		// DELETE 필요 객체 선언
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		int rmCnt = -1;
-//		// 2. 커넥션 맺기
-//		try {
-//			
-//			
-//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//		
-//			//매핑
-//			
-//			String sql = "DELETE Book b " 
-//					+    " WHERE b.sequence = ?  ";
-//			
-//			Book Book = new Book();
-//			book.setSequence(1);
-//			
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			
-//			rmCnt = pstmt.executeUpdate();
-//			
-//			if (rmCnt > 0) {
-//				System.out.printf("%d 행이 삭제되었습니다.%n", rmCnt);
-//			}
-//			
-//		} catch (SQLException e) {
-//			System.err.println("SQL 구문 오류! " + e.getMessage());
-//			e.printStackTrace();
-//			
-//		} finally {
-//			// 6. 자원 해제
-//			try {
-//				if (pstmt != null) {
-//					pstmt.close();
-//				}
-//				if (conn != null) {
-//					conn.close();
-//				}
-//			} catch (SQLException e) {
-//				System.err.println("자원 해제 오류! " + e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
-//		return rmCnt;
-//	}
-//
-//	@Override
-//	public Book get(Book book) throws NotFoundException {
-//		// SELECT 1건 필요 객체 선언
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet result = null;
-//		Book foundBook = null;
-//		
-//		
-//		// 2. 커넥션 맺기
-//		try {
-//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			// 3. 쿼리 준비
-//			String sql =  "SELECT b.sequence "
-//					+ "         , b.isbn "
-//					+ "         , b.title "  
-//					+ "         , b.autor" 
-//					+ "         , b.company" 
-//					+ "         , b.total" 
-//					+ "         , b.total_page" 
-//					+ "         , b.price" 
-//					+ "      FROM Book b"
-//					+ "     WHERE b.sequence = ?";
-//		
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			while (result.next()) {
-//				// (1) 조회된 행의 각 컬럼을 변수로 받는다.
-//				int sequnce = result.getInt(1);
-//				
-//				
-//			// 4. 쿼리 실행
-//			result = pstmt.executeQuery();
-//			
-//			// 5. 결과 처리
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		
-//		// 6. 자원 해제
-//		return null;
-//	}
-//
-//	@Override
-//	public List<Book> getAllBooks() {
-//		// SELECT 전체행 필요 객체 선언
-//		
-//		// 2. 커넥션 맺기
-//		
-//		// 3. 쿼리 준비
-//		
-//		// 4. 쿼리 실행
-//		
-//		// 5. 결과 처리
-//		
-//		// 6. 자원 해제
-//		return null;
-//	}
-//	
-//	
-//	private boolean isExists(Book book) {
-//		boolean exists = false;
-//		// SELECT 1건 필요 객체 선언
-//		
-//		// 2. 커넥션 맺기
-//		
-//		// 3. 쿼리 준비
-//		
-//		// 4. 쿼리 실행
-//		
-//		// 5. 결과 처리
-//		
-//		// 6. 자원 해제
-//		return exists;
-//	}
-//
-//	@Override
-//	public List<Book> getBooksByTitle(String title) {
-//		// SELECT title 포함된 책 목록 필요 객체 선언
-//		
-//				// 2. 커넥션 맺기
-//				
-//				// 3. 쿼리 준비
-//				
-//				// 4. 쿼리 실행
-//				
-//				// 5. 결과 처리
-//				
-//				// 6. 자원 해제
-//		return null;
-//	}
-//
-//	@Override
-//	public List<Book> getBooksByPrice(String title) {
-//		// SELECT price min ~max 사이인
-//		// min, max 값 포하마 책목록 조회
-//		// 필요 객체 선언
-//		
-//				// 2. 커넥션 맺기
-//				
-//				// 3. 쿼리 준비
-//				
-//				// 4. 쿼리 실행
-//				
-//				// 5. 결과 처리
-//				
-//				// 6. 자원 해제
-//		return null;
-//	}
-//
-//}
-//

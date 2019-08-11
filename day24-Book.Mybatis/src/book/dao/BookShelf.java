@@ -5,6 +5,7 @@ import java.util.List;
 import book.exception.DuplicateException;
 import book.exception.NotFoundException;
 import book.vo.Book;
+import book.vo.Price;
 
 /**
  * 일반적인 책장의 기능을 정의하는 인터페이스
@@ -31,7 +32,7 @@ public interface BookShelf {
 	public abstract int set(Book book) throws NotFoundException;
 	
 	/**
-	 * 책 한권의 정보를 제거(폐기) 하는 메소드	 * 
+	 * 책 한권의 정보를 제거(폐기) 하는 메소드	  
 	 * @param book 삭제할 책의 정보
 	 * @return 삭제에 성공한 책의 갯수
 	 * @exception 수정하려는 책이 없는 경우 발생
@@ -68,13 +69,14 @@ public interface BookShelf {
 	 * @return
 	 */
 	public abstract List<Book> getBooksByPrice(int min, int max);
-
+	
 	/**
-	 * 내부에 가격 검색 최저가, 최고고가
-	 * 함께 들어있는 price 타입의 객체 하나를 받아서
-	 * 도서 검색 결과를 리턴하는ㅁ ㅔ소드
+	 * 내부에 가격검색 최저가, 최고가가
+	 * 함께 들어있는 Price 타입의 객체 하나를 받아서
+	 * 도서 검색 결과를 리턴하는 메소드
 	 * @param price
 	 * @return
 	 */
 	public abstract List<Book> getBooksByPrice(Price price);
+
 }

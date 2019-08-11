@@ -6,6 +6,7 @@ import java.util.List;
 import book.exception.DuplicateException;
 import book.exception.NotFoundException;
 import book.vo.Book;
+import book.vo.Price;
 
 public class ListBookShelf implements BookShelf {
 
@@ -129,5 +130,50 @@ public class ListBookShelf implements BookShelf {
 		}
 		
 		return index;
+	}
+
+	@Override
+	public List<Book> getBooksByTitle(String title) {
+		List<Book> books = new ArrayList<>();
+		
+		for (Book book: this.books) {
+			// 매개변수로 입력된 title 이 this.books 리스트에 들어있는 각 
+			// Book 객체의 제목에 포함(contains() ) 되어 있으면
+			if (book.getTitle().contains(title)) {
+				books.add(book);
+			}
+		}
+		return books;
+	}
+
+	@Override
+	public List<Book> getBooksByPrice(int min, int max) {
+		List<Book> books = new ArrayList<>();
+		
+		for (Book book: this.books) {
+			// this.books 리스트에 있는 각 Book 객체의 가격이
+			// min보다 크거나 같고, max 보다 작거나 같은 조건을 동시에 만족시키면
+			if (book.getPrice() >= min && book.getPrice() <= max) {
+				books.add(book);
+			}
+		}
+		
+		return books;
+	}
+
+	@Override
+	public List<Book> getBooksByPrice(Price price) {
+		List<Book> books = new ArrayList<>();
+		
+		for (Book book: this.books) {
+			// this.books 리스트에 있는 각 Book 객체의 가격이
+			// price 객체의 min보다 크거나 같고, 
+			// price 객체의 max 보다 작거나 같은 조건을 동시에 만족시키면
+			if (book.getPrice() >= price.getMin() && book.getPrice() <= price.getMax()) {
+				books.add(book);
+			}
+		}
+		
+		return books;
 	}
 }
