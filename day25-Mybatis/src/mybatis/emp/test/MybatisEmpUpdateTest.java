@@ -47,6 +47,7 @@ public class MybatisEmpUpdateTest {
 		emp.put("SAL", 1250);
 		emp.put("COMM", 400);
 		emp.put("DEPTNO", 30);
+		
 		// (2) 조회 된 직원 정보 일부 수정
 		//		mybatis.emp.mapper.EmpMapper.update
 		int setCnt=
