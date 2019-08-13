@@ -48,7 +48,8 @@
   				</insert>
   
   <!--  member 테이블의 1명 update 쿼리 작성 -->		
-  <update id="updateMember" parameterType="Member">
+  <update id="
+" parameterType="Member">
   UPDATE Member m 
        SET m.member_name 	= #{memberName}
          , m.phone 			= #{phone}
