@@ -18,6 +18,19 @@
   		 ORDER BY e.empno
     </select>
     
+    <select id="selectByName" parameterType="string" resultType="map">
+   		SELECT e.empno 
+    		 , e.ename 
+     		 , e.job
+     		 , e.mgr
+     		 , TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate
+     		 , e.comm
+     		 , e.sal
+     		 , e.deptno
+  		  FROM emp e
+  		 ORDER BY e.empno
+    </select>
+    
     <!-- emp 테이블에서 사번으로 1명의 정보 조회 -->
     <select id="selectEmp" parameterType="int" resultType="map">
     	SELECT e.empno 
