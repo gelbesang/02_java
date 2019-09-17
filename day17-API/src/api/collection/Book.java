@@ -1,4 +1,4 @@
-package book;
+package api.collection;
 
 /**
  * 책 한 권의 정보를 담는 클래스
@@ -55,7 +55,7 @@ package book;
  *                    
  * 3. 메소드 수정 : print() 메소드는 this 객체 출력코드로 변경                                     
  * ==================================================
- * @author 304
+ * @author taim
  *
  */
 public class Book {
@@ -180,7 +180,6 @@ public class Book {
 		return result;
 	}
 
-	// sequence 재정의 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -209,12 +208,3 @@ public class Book {
 	
 	
 }
-
-
-
-
-
-
-
-
-
