@@ -6,7 +6,7 @@ package staticfield;
  * 
  * 초기화 시점에 따른 참조를 구성하는 클래스 
  * 
- * @author 304
+ * @author taim
  *
  */
 public class StaticInit {
@@ -113,7 +113,3 @@ public class StaticInit {
 	
 
 }
-
-
-
-
