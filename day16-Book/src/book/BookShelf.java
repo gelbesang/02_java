@@ -2,8 +2,6 @@ package book;
 
 import java.util.Arrays;
 
-import javax.sound.midi.Sequence;
-
 /**
  * Book 여러개가 꼽혀있어
  * 책 객체 여러개를 한번에 저장하고 
@@ -14,7 +12,7 @@ import javax.sound.midi.Sequence;
  *                  생성자, 메소드는 public
  *                  
  * ==================================================
- * @author 304
+ * @author taim
  *
  */
 public class BookShelf {
@@ -46,52 +44,29 @@ public class BookShelf {
 	 *             추가 실패
 	 *         1 : 새 책 정보 1건이 성공적으로 추가된 경우
 	 */
-	
 	public int add(Book book) {
-		// 리턴 값 저장 변수 선언, 초기화  들어가자마자 내가 하고자 하는 반대방향으로 초기화를해줌 
-		// 1. 초기화 , 리턴값 먼저 맞추고 로직 전개 
+		// 1. 리턴 값 저장변수 선언, 초기화
 		int addCount = 0;
-	
-	
-		// 3. 로직 전개
-		// 추가 하려는 책이 존재하는지 판단
-		if(!isExists(book)) {
+		
+		// 3. 로직전개
+		// 추가하려는 책이 존재하는지 판단
+		if (!isExists(book)) {
+		
+			// 이미 존재하는 배열 + 1크기로 복사
+			this.books = Arrays.copyOf(books, books.length + 1);
 			
+			// 1 늘어난 배열 마지막 자리에 새 book
+			// (매개변수로 넘어온 것) 저장
+			this.books[books.length - 1] = book;
+			
+			addCount++;
 		}
 		
-		// 이미 존재하는 배열 + 1크기로 복사
-		this.books = Arrays.copyOf(books,books.length + 1);
-		
-		
-		
-		// 1 늘어난 배열 마지막 자리에 새 book (매개 변수로 넘어온것 저장)
-		this.books[books.length - 1] = book;
-		
-		addCount++;
-		
-		// 2. 리턴 값 저장변 수 리턴 구문
+		// 2. 리턴 값 저장 변수 리턴 구문 
 		return addCount;
 	}
 	
-//	public void add(Book book) {
-//		// 현재 books 보다 길이가 1큰 배열을 새로 만든다.
-//		// newBooks
-//		Book[] newBooks = new Book[books.length + 1];
-//		
-//		// books 의 모든 책 내용을 새로 생성한 1칸 큰 배열에
-//		// 앞쪽부터 복사
-//		for (int idx = 0; idx < books.length; idx++) {
-//			newBooks[idx] = books[idx];			
-//		}
-//		
-//		// 매개변수로 넘겨진 book 은 마지막 새로 생긴 칸에 저장
-//		newBooks[newBooks.length - 1] = book;
-//		
-//		// 이 클래스의 books 멤버변수에 새로만든 newBooks 저장
-//		this.books = newBooks;
-//	}
-//	
-//	// 책장에서 책을 제거 : void : remove(Book book)
+	// 책장에서 책을 제거 : void : remove(Book book)
 	/**
 	 * 삭제하기 전에 목록에 book 객체가 존재하는지 먼저
 	 * isExists(book) 으로 판단
@@ -100,38 +75,44 @@ public class BookShelf {
 	 * 결과가 false 이면 삭제로직 진행 없이 0리턴
 	 * @param book
 	 */
-	public void remove(Book book) {
+	public int remove(Book book) {
 		// book 객체의 sequence 가 같으면 같은 책으로 판단해서
 		// 삭제
 		// 폐기 안하고 남는 책을 유지할 새 배열
+		int rmCnt = 0;		
 		Book[] newBooks;
 		
-		// 1. 폐기할 책이 위치하는 인덱스를 찾기
-		int index = findBookIndex(book);
-		
-		// 2. 폐기할 책의 인덱스가 -1보다 크면
-		//    폐기할 책이 있다는 의미로 판단하고 삭제로직 진입
-		if (index > -1) {
-			// 3. 폐기 안할 책을 유지할 
-			//    새 배열을 지금 배열 크기 - 1 크기로 생성
-			newBooks = new Book[books.length - 1];
+		// 삭제할 책이 존재하면
+		if (isExists(book)) {
 			
-			//  (1) 삭제할 책 앞쪽의 책정보는 같은 인덱스로 복사
-			for (int idx = 0; idx < index; idx++) {
-				newBooks[idx] = books[idx];
-			}
+			// 1. 폐기할 책이 위치하는 인덱스를 찾기
+			int index = findBookIndex(book);
 			
-			//  (2) 삭제할 책 뒤쪽의 남는 책정보는 현재 인덱스 - 1 위치로 복사
-			for (int idx = index; idx < newBooks.length; idx++) {
-				newBooks[idx] = books[idx + 1];
-			}
-			
-			// 6. 남는 책이 복사된 새 배열을
-			//    this.book 에 새로 저장
-			this.books = newBooks;
+			// 2. 폐기할 책의 인덱스가 -1보다 크면
+			//    폐기할 책이 있다는 의미로 판단하고 삭제로직 진입
+			if (index > -1) {
+				// 3. 폐기 안할 책을 유지할 
+				//    새 배열을 지금 배열 크기 - 1 크기로 생성
+				newBooks = new Book[books.length - 1];
+				
+				//  (1) 삭제할 책 앞쪽의 책정보는 같은 인덱스로 복사
+				for (int idx = 0; idx < index; idx++) {
+					newBooks[idx] = books[idx];
+				}
+				
+				//  (2) 삭제할 책 뒤쪽의 남는 책정보는 현재 인덱스 - 1 위치로 복사
+				for (int idx = index; idx < newBooks.length; idx++) {
+					newBooks[idx] = books[idx + 1];
+				}
+				
+				// 6. 남는 책이 복사된 새 배열을
+				//    this.book 에 새로 저장
+				this.books = newBooks;
+				rmCnt++;
+			} // end outer if
+		}
 		
-		} // end outer if
-		
+		return rmCnt;
 	}
 	
 	// 책 정보 수정 : void : set(Book book)
@@ -144,14 +125,15 @@ public class BookShelf {
 	 * false 이면 수정진행하지 않고 0리턴
 	 * @param book
 	 */
-	public void set(Book book) {
-		// 수정할 book 이 books 배열 
-		// 몇번째 인덱스에 있는지 찾는다.
-		int index = findBookIndex(book);
-		
-		if (index > -1) {
-			books[index] = book;
+	public int set(Book book) {
+		int setCnt = 0;
+		if (isExists(book)) {
+			// 수정할 book 이 books 배열 
+			// 몇번째 인덱스에 있는지 찾는다.
+			books[findBookIndex(book)] = book;
+			setCnt++;
 		}
+		return setCnt;
 	}
 	
 	// 책 한권 얻기 : Book : get(Book book)
@@ -177,7 +159,7 @@ public class BookShelf {
 		this.books = books;
 	}
 
-	// -------------------------------------------------------------------------------
+	// ---------------------------------------
 	/**
 	 * 매개변수 전달된 책 정보와
 	 * 일치하는 일련번호를 가진 책(책 배열: books 에 있는)을
@@ -213,8 +195,8 @@ public class BookShelf {
 	private int findBookIndex(Book book) {
 		int index = -1;
 		for (int idx = 0; idx < books.length; idx++) {
-			if (books[idx].equals(book)) { // 
-				// 같은 책 찾았다. book에서 sequence 재정의를 해주엇기 때문
+			if (books[idx].equals(book)) {
+				// 같은 책 찾았다.
 				index = idx;
 				break;
 			}
@@ -235,41 +217,22 @@ public class BookShelf {
 	 *         false : 찾는 책이 목록에 없을 때
 	 */
 	private boolean isExists(Book book) {
-		 boolean exists = false;
-		 for(int idx = 0; idx < books.length; idx++) {
-			 if(books[idx].equals(book)) {
-				 exists =true;
-				 break;
-			 }else {
-				 exists = false;
-			 }
-		
-		 }
-		return exists;
-	
-		// 리턴 값 이 있는 메소드의 경우
+		// 리턴 값이 있는 메소드의 경우
 		// 리턴 값을 저장할 변수를 선언, 초기화
-//		boolean exists = false;
-//		↑최대한 부정적인 값을 주는게 좋음
-//		for (Book findBook: books) {
-//			if(findBook.equals(book)) {
-//				// 메소드 로직 중간에서는 
-//				// 리턴 값을 저장하는 변수 결정만 진행
-//				exists = true;
-//				break;
-//			}
-//		}
-//	// 리턴 구문은 메소드 종료 직전 한번만 하는 습관 들이세요.
-//		return exists;
-//		
+		boolean exists = false;
+		
+		for (Book findBook: books) {
+			if (findBook.equals(book)) {
+				// 메소드 로직 중간에서는
+				// 리턴 값을 저장하는 변수의 값을 결정만 진행
+				exists = true;
+				break;
+			}
+		}
+		// 리턴 구문은 메소드 종료 직전 
+		// 1번만 하는 습관 들이세요.
+		return exists;
 	}
 	
 	
-	
 }
-
-
-
-
-
-
