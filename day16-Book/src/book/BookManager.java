@@ -26,7 +26,7 @@ import book.resp.SingleResp;
  *                  생성자, 메소드는 public
  *                  
  * ==================================================
- * @author 304
+ * @author taim
  *
  */
 public class BookManager {
@@ -86,7 +86,8 @@ public class BookManager {
 		response = new MessageResp();
 		
 		if (rmCnt > 0) {
-			message = String.format(book.toString() + "%d 건이 삭제되었습니다.", rmCnt);
+			message = String.format(book.toString() 
+					+ "%d 건이 삭제되었습니다.", rmCnt);
 		} else {
 			message = "삭제하려는 도서가 존재하지 않습니다.";
 		}
@@ -99,7 +100,8 @@ public class BookManager {
 	 * 책 한개를 가지고 올 수 있다.
 	 * 이 때 책을 가져오며 책의 정보를 알려주는 응답을 한다.
 	 * 
-	 * 이제 매니저가 직접 응답을 할 것이므로 리턴타입을 Book --> void 로 변경한다.
+	 * 이제 매니저가 직접 응답을 할 것이므로 
+	 * 리턴타입을 Book --> void 로 변경한다.
 	 * -------------------------------------------------------------------
 	 * 찾는 책을 가져올 때, 매니저는 찾기에 성공할 수도 있고 실패할 수도 있다.
 	 * findBook(book) 결과 책이 있으면 해당 책을 가져올 것이고
@@ -148,7 +150,8 @@ public class BookManager {
 		String message;
 		response = new MessageResp(); 
 		if (setCnt > 0) {
-			message = String.format(book.toString() + " %d 건을 수정하였습니다.", setCnt);
+			message = String.format(book.toString() 
+					+ " %d 건을 수정하였습니다.", setCnt);
 		} else {
 			message = "수정하려는 도서가 존재하지 않습니다.";
 		}
@@ -164,7 +167,3 @@ public class BookManager {
 	}
 	
 }
-
-
-
-
