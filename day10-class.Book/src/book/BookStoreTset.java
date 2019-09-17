@@ -7,7 +7,7 @@ package book;
  * @author Administrator
  *
  */
-public class BookStoreTset {
+public class BookStoreTset {	
 
 	public static void main(String[] args) {
 	
