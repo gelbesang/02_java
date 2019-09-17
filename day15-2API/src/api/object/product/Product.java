@@ -44,7 +44,7 @@ package api.object.product;
  * 각 생성자 선언할 때, 문서 주석 달 것
  * 각 메소드 선언할 때, 메소드 설명을 문서 주석으로 달 것.
  * ----------------------------------------------- 
- * @author 
+ * @author taim
  *
  */
 public class Product {
@@ -203,6 +203,15 @@ public class Product {
 	// 1. 메소드 헤더가 동일 : 리턴타입 메소드이름 (매개변수 목록)
 	@Override
 	public String toString() {
+		String strProduct = String.format(
+				"제품 정보 [제품코드 : %s, 제품명 : %s"
+		                 + ", 가격 %,d: , 재고수량 : %d]"
+		         , pcode, pname, price, quantity);
+		return strProduct;
+	}
+	
+//	@Override
+	public String toString(String option) {
 		String strProduct = String.format(
 				"제품 정보 [제품코드 : %s, 제품명 : %s"
 		                 + ", 가격 %,d: , 재고수량 : %d]"
